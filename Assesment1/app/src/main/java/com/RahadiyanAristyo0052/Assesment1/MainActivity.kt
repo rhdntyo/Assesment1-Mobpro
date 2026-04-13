@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.RahadiyanAristyo0052.Assesment1.ui.screen.MainScreen
+import com.RahadiyanAristyo0052.Assesment1.ui.screen.AppNavigation
 import com.RahadiyanAristyo0052.Assesment1.ui.theme.KalkulatorNilaiProdukTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KalkulatorNilaiProdukTheme {
-                MainScreen()
+                AppNavigation()
             }
         }
     }

@@ -5,7 +5,6 @@
     <string name="intro_desc">This app helps users compare two products by calculating which option gives a better price per volume. It is useful for detergent, drinks, refill packs, and other daily shopping decisions.</string>
     <string name="image_desc">Illustration of Product</string>
     <string name="form_title">Input two products to compare</string>
-    <string name="form_desc">Fill in the product name, price, and amount first. Units now support weight, volume, and piece-based items.</string>
     <string name="product_1">Product 1</string>
     <string name="product_2">Product 2</string>
     <string name="name_label">Product name</string>
@@ -25,6 +24,9 @@
     <string name="liter">Liter (L)</string>
     <string name="pcs">Pieces (pcs)</string>
     <string name="compare_button">Compare now</string>
+    <string name="menu_open">Open menu</string>
+    <string name="menu_about">About app</string>
+    <string name="up_button">Back</string>
     <string name="result_title">Comparison result</string>
     <string name="result_start">Press the compare button to see the result.</string>
     <string name="result_empty">Fill in both product prices and amounts to see the comparison result.</string>
@@ -36,4 +38,11 @@
     <string name="field_required">This field is required.</string>
     <string name="price_invalid_field">Enter a valid price greater than 0.</string>
     <string name="amount_invalid_field">Enter a valid amount greater than 0.</string>
+    <string name="about_title">About</string>
+    <string name="about_heading">About this application</string>
+    <string name="about_desc">This app helps users compare two products based on value per unit, so shopping decisions can be more efficient and practical in daily life.</string>
+    <string name="about_how_title">How to use</string>
+    <string name="about_step_1">1. Enter product name, price, amount, and unit for the first product.</string>
+    <string name="about_step_2">2. Enter the same data for the second product using a comparable unit category.</string>
+    <string name="about_step_3">3. Press the compare button to see price per unit and the better choice.</string>
 </resources>

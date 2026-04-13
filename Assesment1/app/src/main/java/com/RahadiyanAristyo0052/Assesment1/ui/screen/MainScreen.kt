@@ -2,6 +2,8 @@ package com.RahadiyanAristyo0052.Assesment1.ui.screen
 
 import android.content.Context
 import android.content.res.Configuration
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +24,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -56,7 +62,9 @@ import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(onOpenAbout: () -> Unit = {}) {
+    var menuExpanded by rememberSaveable { mutableStateOf(false) }
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -67,6 +75,31 @@ fun MainScreen() {
                 ),
                 title = {
                     Text(text = stringResource(R.string.title_app))
+                },
+                actions = {
+                    Box {
+                        IconButton(onClick = { menuExpanded = true }) {
+                            Icon(
+                                imageVector = Icons.Filled.MoreVert,
+                                contentDescription = stringResource(R.string.menu_open)
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = menuExpanded,
+                            onDismissRequest = { menuExpanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = {
+                                    Text(text = stringResource(R.string.menu_about))
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    onOpenAbout()
+                                }
+                            )
+                        }
+                    }
                 }
             )
         }
@@ -146,20 +179,6 @@ fun ScreenContent(modifier: Modifier = Modifier) {
                         .background(MaterialTheme.colorScheme.primary)
                 )
             }
-
-            Text(
-                text = stringResource(R.string.intro_title),
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-
-            Text(
-                text = stringResource(R.string.intro_desc),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Justify
-            )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -174,12 +193,7 @@ fun ScreenContent(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(6.dp))
 
-        Text(
-            text = stringResource(R.string.form_desc),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.fillMaxWidth()
-        )
+
 
         Spacer(modifier = Modifier.height(14.dp))
 

@@ -5,7 +5,6 @@
     <string name="intro_desc">Aplikasi ini membantu pengguna membandingkan dua produk dengan menghitung mana yang memberi harga terbaik per volume. Cocok untuk deterjen, minuman, isi ulang, dan kebutuhan belanja sehari-hari.</string>
     <string name="image_desc">Ilustrasi Produk</string>
     <string name="form_title">Masukkan dua produk untuk dibandingkan</string>
-    <string name="form_desc">Isi dulu nama produk, harga, dan jumlahnya. Satuan sekarang mendukung berat, volume, dan barang hitungan.</string>
     <string name="product_1">Produk 1</string>
     <string name="product_2">Produk 2</string>
     <string name="name_label">Nama produk</string>
@@ -25,6 +24,9 @@
     <string name="liter">Liter (L)</string>
     <string name="pcs">Buah (pcs)</string>
     <string name="compare_button">Bandingkan sekarang</string>
+    <string name="menu_open">Buka menu</string>
+    <string name="menu_about">Tentang aplikasi</string>
+    <string name="up_button">Kembali</string>
     <string name="result_title">Hasil perbandingan</string>
     <string name="result_start">Tekan tombol bandingkan untuk melihat hasilnya.</string>
     <string name="result_empty">Isi harga dan jumlah untuk kedua produk agar hasil perbandingan bisa ditampilkan.</string>
@@ -36,4 +38,11 @@
     <string name="field_required">Kolom ini wajib diisi.</string>
     <string name="price_invalid_field">Masukkan harga yang valid dan lebih dari 0.</string>
     <string name="amount_invalid_field">Masukkan jumlah yang valid dan lebih dari 0.</string>
+    <string name="about_title">Tentang</string>
+    <string name="about_heading">Tentang aplikasi ini</string>
+    <string name="about_desc">Aplikasi ini membantu pengguna membandingkan dua produk berdasarkan nilai per satuan, sehingga keputusan belanja bisa lebih hemat dan praktis dalam kehidupan sehari-hari.</string>
+    <string name="about_how_title">Cara penggunaan</string>
+    <string name="about_step_1">1. Masukkan nama produk, harga, jumlah, dan satuan untuk produk pertama.</string>
+    <string name="about_step_2">2. Masukkan data yang sama untuk produk kedua dengan kategori satuan yang bisa dibandingkan.</string>
+    <string name="about_step_3">3. Tekan tombol bandingkan untuk melihat harga per satuan dan pilihan yang lebih hemat.</string>
 </resources>
