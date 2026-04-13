@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Kalkulator Perbandingan Nilai Produk</string>
     <string name="title_app">Kalkulator Nilai Produk</string>
-    <string name="intro_title">Pilih produk yang lebih untung, bukan cuma yang lebih murah.</string>
-    <string name="intro_desc">Aplikasi ini membantu pengguna membandingkan dua produk dengan menghitung mana yang memberi harga terbaik per volume. Cocok untuk deterjen, minuman, isi ulang, dan kebutuhan belanja sehari-hari.</string>
     <string name="image_desc">Ilustrasi Produk</string>
     <string name="form_title">Masukkan dua produk untuk dibandingkan</string>
     <string name="product_1">Produk 1</string>
@@ -26,11 +24,7 @@
     <string name="compare_button">Bandingkan sekarang</string>
     <string name="share_button">Bagikan hasil</string>
     <string name="share_title">Bagikan hasil perbandingan</string>
-    <string name="share_text">%1$s
-
-%2$s
-
-%3$s</string>
+    <string name="share_header">Hasil perbandingan produk</string>
     <string name="menu_open">Buka menu</string>
     <string name="menu_about">Tentang aplikasi</string>
     <string name="up_button">Kembali</string>
@@ -42,6 +36,7 @@
     <string name="result_unit_price">%1$s: Rp %2$s per %3$s</string>
     <string name="result_better">%1$s memberi nilai yang lebih hemat.</string>
     <string name="result_equal">Kedua produk memberi nilai yang sama.</string>
+    <string name="result_difference">Selisih: Rp %1$s per %2$s</string>
     <string name="field_required">Kolom ini wajib diisi.</string>
     <string name="price_invalid_field">Masukkan harga yang valid dan lebih dari 0.</string>
     <string name="amount_invalid_field">Masukkan jumlah yang valid dan lebih dari 0.</string>

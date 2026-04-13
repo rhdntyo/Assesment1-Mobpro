@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Kalkulator Perbandingan Nilai Produk</string>
     <string name="title_app">Product Value Calculator</string>
-    <string name="intro_title">Choose the smarter product, not just the cheaper one.</string>
-    <string name="intro_desc">This app helps users compare two products by calculating which option gives a better price per volume. It is useful for detergent, drinks, refill packs, and other daily shopping decisions.</string>
     <string name="image_desc">Illustration of Product</string>
     <string name="form_title">Input two products to compare</string>
     <string name="product_1">Product 1</string>
@@ -26,11 +24,7 @@
     <string name="compare_button">Compare now</string>
     <string name="share_button">Share result</string>
     <string name="share_title">Share comparison result</string>
-    <string name="share_text">%1$s
-
-%2$s
-
-%3$s</string>
+    <string name="share_header">Product comparison result</string>
     <string name="menu_open">Open menu</string>
     <string name="menu_about">About app</string>
     <string name="up_button">Back</string>
@@ -42,6 +36,7 @@
     <string name="result_unit_price">%1$s: Rp %2$s per %3$s</string>
     <string name="result_better">%1$s gives a better value.</string>
     <string name="result_equal">Both products give the same value.</string>
+    <string name="result_difference">Difference: Rp %1$s per %2$s</string>
     <string name="field_required">This field is required.</string>
     <string name="price_invalid_field">Enter a valid price greater than 0.</string>
     <string name="amount_invalid_field">Enter a valid amount greater than 0.</string>

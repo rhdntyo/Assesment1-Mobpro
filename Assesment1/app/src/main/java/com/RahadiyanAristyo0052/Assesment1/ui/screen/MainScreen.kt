@@ -127,6 +127,7 @@ fun ScreenContent(modifier: Modifier = Modifier) {
     var resultLine1 by rememberSaveable { mutableStateOf("") }
     var resultLine2 by rememberSaveable { mutableStateOf("") }
     var resultSummary by rememberSaveable { mutableStateOf("") }
+    var resultDetail by rememberSaveable { mutableStateOf("") }
 
     val product1Title = stringResource(R.string.product_1)
     val product2Title = stringResource(R.string.product_2)
@@ -250,6 +251,7 @@ fun ScreenContent(modifier: Modifier = Modifier) {
                 resultLine1 = result.line1
                 resultLine2 = result.line2
                 resultSummary = result.summary
+                resultDetail = result.detail
             },
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -262,7 +264,8 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             hasCompared = hasCompared,
             resultLine1 = resultLine1,
             resultLine2 = resultLine2,
-            resultSummary = resultSummary
+            resultSummary = resultSummary,
+            resultDetail = resultDetail
         )
 
         if (canShare) {
@@ -271,13 +274,19 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             Button(
                 onClick = {
                     val shareText = context.getString(
-                        R.string.share_text,
-                        resultLine1,
-                        resultLine2,
-                        resultSummary
+                        R.string.share_header
                     )
 
-                    shareResult(context, shareText)
+                    shareResult(
+                        context,
+                        listOf(
+                            shareText,
+                            resultLine1,
+                            resultLine2,
+                            resultSummary,
+                            resultDetail
+                        ).filter { it.isNotBlank() }.joinToString("\n\n")
+                    )
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -392,7 +401,8 @@ fun ResultCard(
     hasCompared: Boolean,
     resultLine1: String,
     resultLine2: String,
-    resultSummary: String
+    resultSummary: String,
+    resultDetail: String
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -445,6 +455,14 @@ fun ResultCard(
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
+
+            if (resultDetail.isNotBlank()) {
+                Text(
+                    text = resultDetail,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }
@@ -503,7 +521,8 @@ fun MainScreenPreview() {
 data class ComparisonResult(
     val line1: String,
     val line2: String,
-    val summary: String
+    val summary: String,
+    val detail: String
 )
 
 fun compareProducts(
@@ -526,7 +545,8 @@ fun compareProducts(
         return ComparisonResult(
             line1 = "",
             line2 = "",
-            summary = context.getString(R.string.result_empty)
+            summary = context.getString(R.string.result_empty),
+            detail = ""
         )
     }
 
@@ -534,7 +554,8 @@ fun compareProducts(
         return ComparisonResult(
             line1 = "",
             line2 = "",
-            summary = context.getString(R.string.result_incompatible)
+            summary = context.getString(R.string.result_incompatible),
+            detail = ""
         )
     }
 
@@ -550,7 +571,8 @@ fun compareProducts(
         return ComparisonResult(
             line1 = "",
             line2 = "",
-            summary = context.getString(R.string.result_invalid)
+            summary = context.getString(R.string.result_invalid),
+            detail = ""
         )
     }
 
@@ -576,10 +598,21 @@ fun compareProducts(
         context.getString(R.string.result_better, product2Label)
     }
 
+    val detail = if (abs(product1UnitPrice - product2UnitPrice) < 0.0001) {
+        ""
+    } else {
+        context.getString(
+            R.string.result_difference,
+            formatNumber(abs(product1UnitPrice - product2UnitPrice)),
+            unitLabel
+        )
+    }
+
     return ComparisonResult(
         line1 = line1,
         line2 = line2,
-        summary = summary
+        summary = summary,
+        detail = detail
     )
 }
 
