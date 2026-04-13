@@ -24,5 +24,13 @@
     <string name="ml">Mililiter (mL)</string>
     <string name="liter">Liter (L)</string>
     <string name="pcs">Buah (pcs)</string>
+    <string name="compare_button">Bandingkan sekarang</string>
+    <string name="result_title">Hasil perbandingan</string>
+    <string name="result_start">Tekan tombol bandingkan untuk melihat hasilnya.</string>
+    <string name="result_empty">Isi harga dan jumlah untuk kedua produk agar hasil perbandingan bisa ditampilkan.</string>
+    <string name="result_incompatible">Pilih satuan dari kategori yang sama agar kedua produk bisa dibandingkan dengan adil.</string>
+    <string name="result_invalid">Gunakan angka yang valid dan lebih dari nol agar perhitungan bisa diproses.</string>
+    <string name="result_unit_price">%1$s: Rp %2$s per %3$s</string>
+    <string name="result_better">%1$s memberi nilai yang lebih hemat.</string>
+    <string name="result_equal">Kedua produk memberi nilai yang sama.</string>
 </resources>
-

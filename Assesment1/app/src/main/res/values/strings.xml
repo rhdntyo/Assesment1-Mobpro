@@ -24,5 +24,13 @@
     <string name="ml">Milliliter (mL)</string>
     <string name="liter">Liter (L)</string>
     <string name="pcs">Pieces (pcs)</string>
+    <string name="compare_button">Compare now</string>
+    <string name="result_title">Comparison result</string>
+    <string name="result_start">Press the compare button to see the result.</string>
+    <string name="result_empty">Fill in both product prices and amounts to see the comparison result.</string>
+    <string name="result_incompatible">Choose units from the same category so the products can be compared fairly.</string>
+    <string name="result_invalid">Use valid numbers greater than zero so the calculation can be processed.</string>
+    <string name="result_unit_price">%1$s: Rp %2$s per %3$s</string>
+    <string name="result_better">%1$s gives a better value.</string>
+    <string name="result_equal">Both products give the same value.</string>
 </resources>
-

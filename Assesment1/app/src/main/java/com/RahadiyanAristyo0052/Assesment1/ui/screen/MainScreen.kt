@@ -1,5 +1,6 @@
 package com.RahadiyanAristyo0052.Assesment1.ui.screen
 
+import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.Button
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -37,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -47,6 +50,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.RahadiyanAristyo0052.Assesment1.R
 import com.RahadiyanAristyo0052.Assesment1.ui.theme.KalkulatorNilaiProdukTheme
+import java.text.NumberFormat
+import java.util.Locale
+import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,6 +77,7 @@ fun MainScreen() {
 
 @Composable
 fun ScreenContent(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
     var product1Name by rememberSaveable { mutableStateOf("") }
     var product1Price by rememberSaveable { mutableStateOf("") }
     var product1Amount by rememberSaveable { mutableStateOf("") }
@@ -80,6 +87,14 @@ fun ScreenContent(modifier: Modifier = Modifier) {
     var product2Price by rememberSaveable { mutableStateOf("") }
     var product2Amount by rememberSaveable { mutableStateOf("") }
     var product2Unit by rememberSaveable { mutableStateOf("ml") }
+
+    var hasCompared by rememberSaveable { mutableStateOf(false) }
+    var resultLine1 by rememberSaveable { mutableStateOf("") }
+    var resultLine2 by rememberSaveable { mutableStateOf("") }
+    var resultSummary by rememberSaveable { mutableStateOf("") }
+
+    val product1Title = stringResource(R.string.product_1)
+    val product2Title = stringResource(R.string.product_2)
 
     Column(
         modifier = modifier
@@ -189,6 +204,41 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             onUnitChange = { product2Unit = it }
         )
 
+        Spacer(modifier = Modifier.height(14.dp))
+
+        Button(
+            onClick = {
+                hasCompared = true
+                val result = compareProducts(
+                    context = context,
+                    product1Label = product1Name.ifBlank { product1Title },
+                    product1PriceText = product1Price,
+                    product1AmountText = product1Amount,
+                    product1Unit = product1Unit,
+                    product2Label = product2Name.ifBlank { product2Title },
+                    product2PriceText = product2Price,
+                    product2AmountText = product2Amount,
+                    product2Unit = product2Unit
+                )
+
+                resultLine1 = result.line1
+                resultLine2 = result.line2
+                resultSummary = result.summary
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = stringResource(R.string.compare_button))
+        }
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+        ResultCard(
+            hasCompared = hasCompared,
+            resultLine1 = resultLine1,
+            resultLine2 = resultLine2,
+            resultSummary = resultSummary
+        )
+
         Spacer(modifier = Modifier.height(20.dp))
     }
 }
@@ -288,6 +338,68 @@ fun ProductCard(
 }
 
 @Composable
+fun ResultCard(
+    hasCompared: Boolean,
+    resultLine1: String,
+    resultLine2: String,
+    resultSummary: String
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.result_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+
+            if (!hasCompared) {
+                Text(
+                    text = stringResource(R.string.result_start),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                return@Column
+            }
+
+            if (resultLine1.isNotBlank()) {
+                Text(
+                    text = resultLine1,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            if (resultLine2.isNotBlank()) {
+                Text(
+                    text = resultLine2,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            Text(
+                text = resultSummary,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+    }
+}
+
+@Composable
 private fun UnitGroupLabel(text: String) {
     Text(
         text = text,
@@ -336,4 +448,168 @@ fun MainScreenPreview() {
     KalkulatorNilaiProdukTheme {
         MainScreen()
     }
+}
+
+data class ComparisonResult(
+    val line1: String,
+    val line2: String,
+    val summary: String
+)
+
+fun compareProducts(
+    context: Context,
+    product1Label: String,
+    product1PriceText: String,
+    product1AmountText: String,
+    product1Unit: String,
+    product2Label: String,
+    product2PriceText: String,
+    product2AmountText: String,
+    product2Unit: String
+): ComparisonResult {
+    if (
+        product1PriceText.isBlank() ||
+        product1AmountText.isBlank() ||
+        product2PriceText.isBlank() ||
+        product2AmountText.isBlank()
+    ) {
+        return ComparisonResult(
+            line1 = "",
+            line2 = "",
+            summary = context.getString(R.string.result_empty)
+        )
+    }
+
+    if (unitCategory(product1Unit) != unitCategory(product2Unit)) {
+        return ComparisonResult(
+            line1 = "",
+            line2 = "",
+            summary = context.getString(R.string.result_incompatible)
+        )
+    }
+
+    val product1Price = parsePrice(product1PriceText)
+    val product1Amount = parseAmount(product1AmountText)
+    val product2Price = parsePrice(product2PriceText)
+    val product2Amount = parseAmount(product2AmountText)
+
+    val product1UnitPrice = calculateUnitPrice(product1Price, product1Amount, product1Unit)
+    val product2UnitPrice = calculateUnitPrice(product2Price, product2Amount, product2Unit)
+
+    if (product1UnitPrice == null || product2UnitPrice == null) {
+        return ComparisonResult(
+            line1 = "",
+            line2 = "",
+            summary = context.getString(R.string.result_invalid)
+        )
+    }
+
+    val unitLabel = baseUnitLabel(product1Unit)
+    val line1 = context.getString(
+        R.string.result_unit_price,
+        product1Label,
+        formatNumber(product1UnitPrice),
+        unitLabel
+    )
+    val line2 = context.getString(
+        R.string.result_unit_price,
+        product2Label,
+        formatNumber(product2UnitPrice),
+        unitLabel
+    )
+
+    val summary = if (abs(product1UnitPrice - product2UnitPrice) < 0.0001) {
+        context.getString(R.string.result_equal)
+    } else if (product1UnitPrice < product2UnitPrice) {
+        context.getString(R.string.result_better, product1Label)
+    } else {
+        context.getString(R.string.result_better, product2Label)
+    }
+
+    return ComparisonResult(
+        line1 = line1,
+        line2 = line2,
+        summary = summary
+    )
+}
+
+fun calculateUnitPrice(price: Double?, amount: Double?, unit: String): Double? {
+    val baseAmount = amount?.let { convertToBaseUnit(it, unit) }
+
+    if (price == null || amount == null || baseAmount == null) {
+        return null
+    }
+
+    if (price <= 0.0 || amount <= 0.0 || baseAmount <= 0.0) {
+        return null
+    }
+
+    return price / baseAmount
+}
+
+fun parsePrice(text: String): Double? {
+    val cleanText = text.trim().replace(".", "").replace(",", "")
+    return cleanText.toDoubleOrNull()
+}
+
+fun parseAmount(text: String): Double? {
+    val cleanText = text.trim().replace(" ", "")
+
+    if (cleanText.isEmpty()) {
+        return null
+    }
+
+    if (cleanText.contains(",") && cleanText.contains(".")) {
+        val lastComma = cleanText.lastIndexOf(",")
+        val lastDot = cleanText.lastIndexOf(".")
+
+        return if (lastComma > lastDot) {
+            cleanText.replace(".", "").replace(",", ".").toDoubleOrNull()
+        } else {
+            cleanText.replace(",", "").toDoubleOrNull()
+        }
+    }
+
+    if (cleanText.contains(",")) {
+        return cleanText.replace(",", ".").toDoubleOrNull()
+    }
+
+    return cleanText.toDoubleOrNull()
+}
+
+fun convertToBaseUnit(amount: Double, unit: String): Double? {
+    return when (unit) {
+        "mg" -> amount / 1000
+        "g" -> amount
+        "kg" -> amount * 1000
+        "ml" -> amount
+        "l" -> amount * 1000
+        "pcs" -> amount
+        else -> null
+    }
+}
+
+fun unitCategory(unit: String): String {
+    return when (unit) {
+        "mg", "g", "kg" -> "weight"
+        "ml", "l" -> "volume"
+        "pcs" -> "count"
+        else -> ""
+    }
+}
+
+fun baseUnitLabel(unit: String): String {
+    return when (unit) {
+        "mg", "g", "kg" -> "g"
+        "ml", "l" -> "mL"
+        "pcs" -> "pcs"
+        else -> ""
+    }
+}
+
+fun formatNumber(value: Double): String {
+    val formatter = NumberFormat.getNumberInstance(Locale("id", "ID"))
+    formatter.minimumFractionDigits = 0
+    formatter.maximumFractionDigits = 2
+    return formatter.format(value)
 }
