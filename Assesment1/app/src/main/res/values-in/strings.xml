@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Kalkulator Perbandingan Nilai Produk</string>
+    <string name="title_app">Kalkulator Nilai Produk</string>
+    <string name="intro_title">Pilih produk yang lebih untung, bukan cuma yang lebih murah.</string>
+    <string name="intro_desc">Aplikasi ini membantu pengguna membandingkan dua produk dengan menghitung mana yang memberi harga terbaik per volume. Cocok untuk deterjen, minuman, isi ulang, dan kebutuhan belanja sehari-hari.</string>
+    <string name="image_desc">Ilustrasi Produk</string>
+    <string name="form_title">Masukkan dua produk untuk dibandingkan</string>
+    <string name="form_desc">Isi dulu nama produk, harga, dan jumlahnya. Satuan sekarang mendukung berat, volume, dan barang hitungan.</string>
+    <string name="product_1">Produk 1</string>
+    <string name="product_2">Produk 2</string>
+    <string name="name_label">Nama produk</string>
+    <string name="name_help">Opsional, tapi membantu saat rekomendasi akhir ditampilkan.</string>
+    <string name="price_label">Harga (Rupiah)</string>
+    <string name="price_help">Contoh: 23000 atau 32000</string>
+    <string name="amount_label">Jumlah atau ukuran</string>
+    <string name="amount_help">Contoh: 800, 1.2, atau 12 sesuai satuan yang dipilih</string>
+    <string name="unit_label">Satuan</string>
+    <string name="group_weight">Berat</string>
+    <string name="group_volume">Volume</string>
+    <string name="group_count">Hitungan</string>
+    <string name="mg">Miligram (mg)</string>
+    <string name="gram">Gram (g)</string>
+    <string name="kg">Kilogram (kg)</string>
+    <string name="ml">Mililiter (mL)</string>
+    <string name="liter">Liter (L)</string>
+    <string name="pcs">Buah (pcs)</string>
+</resources>
+

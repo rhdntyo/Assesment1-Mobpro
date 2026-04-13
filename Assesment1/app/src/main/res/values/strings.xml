@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Kalkulator Perbandingan Nilai Produk</string>
+    <string name="title_app">Product Value Calculator</string>
+    <string name="intro_title">Choose the smarter product, not just the cheaper one.</string>
+    <string name="intro_desc">This app helps users compare two products by calculating which option gives a better price per volume. It is useful for detergent, drinks, refill packs, and other daily shopping decisions.</string>
+    <string name="image_desc">Illustration of Product</string>
+    <string name="form_title">Input two products to compare</string>
+    <string name="form_desc">Fill in the product name, price, and amount first. Units now support weight, volume, and piece-based items.</string>
+    <string name="product_1">Product 1</string>
+    <string name="product_2">Product 2</string>
+    <string name="name_label">Product name</string>
+    <string name="name_help">Optional, but helpful for the final recommendation.</string>
+    <string name="price_label">Price (Rupiah)</string>
+    <string name="price_help">Examples: 23000 or 32000</string>
+    <string name="amount_label">Amount or size</string>
+    <string name="amount_help">Examples: 800, 1.2, or 12 depending on the selected unit</string>
+    <string name="unit_label">Unit</string>
+    <string name="group_weight">Weight</string>
+    <string name="group_volume">Volume</string>
+    <string name="group_count">Count</string>
+    <string name="mg">Milligram (mg)</string>
+    <string name="gram">Gram (g)</string>
+    <string name="kg">Kilogram (kg)</string>
+    <string name="ml">Milliliter (mL)</string>
+    <string name="liter">Liter (L)</string>
+    <string name="pcs">Pieces (pcs)</string>
+</resources>
+

@@ -1,4 +1,4 @@
-package com.jek.kalkulatornilaiproduk.ui.screen
+package com.RahadiyanAristyo0052.Assesment1.ui.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -45,15 +45,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jek.kalkulatornilaiproduk.R
-import com.jek.kalkulatornilaiproduk.ui.theme.KalkulatorNilaiProdukTheme
-
-private const val UNIT_MG = "mg"
-private const val UNIT_G = "g"
-private const val UNIT_KG = "kg"
-private const val UNIT_ML = "ml"
-private const val UNIT_L = "l"
-private const val UNIT_PCS = "pcs"
+import com.RahadiyanAristyo0052.Assesment1.R
+import com.RahadiyanAristyo0052.Assesment1.ui.theme.KalkulatorNilaiProdukTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,12 +74,12 @@ fun ScreenContent(modifier: Modifier = Modifier) {
     var product1Name by rememberSaveable { mutableStateOf("") }
     var product1Price by rememberSaveable { mutableStateOf("") }
     var product1Amount by rememberSaveable { mutableStateOf("") }
-    var product1Unit by rememberSaveable { mutableStateOf(UNIT_ML) }
+    var product1Unit by rememberSaveable { mutableStateOf("ml") }
 
     var product2Name by rememberSaveable { mutableStateOf("") }
     var product2Price by rememberSaveable { mutableStateOf("") }
     var product2Amount by rememberSaveable { mutableStateOf("") }
-    var product2Unit by rememberSaveable { mutableStateOf(UNIT_ML) }
+    var product2Unit by rememberSaveable { mutableStateOf("ml") }
 
     Column(
         modifier = modifier
@@ -280,16 +273,16 @@ fun ProductCard(
             )
 
             UnitGroupLabel(text = stringResource(R.string.group_weight))
-            UnitOption(label = stringResource(R.string.mg), value = UNIT_MG, selectedValue = unit, onSelected = onUnitChange)
-            UnitOption(label = stringResource(R.string.gram), value = UNIT_G, selectedValue = unit, onSelected = onUnitChange)
-            UnitOption(label = stringResource(R.string.kg), value = UNIT_KG, selectedValue = unit, onSelected = onUnitChange)
+            UnitOption(label = stringResource(R.string.mg), value = "mg", selectedValue = unit, onSelected = onUnitChange)
+            UnitOption(label = stringResource(R.string.gram), value = "g", selectedValue = unit, onSelected = onUnitChange)
+            UnitOption(label = stringResource(R.string.kg), value = "kg", selectedValue = unit, onSelected = onUnitChange)
 
             UnitGroupLabel(text = stringResource(R.string.group_volume))
-            UnitOption(label = stringResource(R.string.ml), value = UNIT_ML, selectedValue = unit, onSelected = onUnitChange)
-            UnitOption(label = stringResource(R.string.liter), value = UNIT_L, selectedValue = unit, onSelected = onUnitChange)
+            UnitOption(label = stringResource(R.string.ml), value = "ml", selectedValue = unit, onSelected = onUnitChange)
+            UnitOption(label = stringResource(R.string.liter), value = "l", selectedValue = unit, onSelected = onUnitChange)
 
             UnitGroupLabel(text = stringResource(R.string.group_count))
-            UnitOption(label = stringResource(R.string.pcs), value = UNIT_PCS, selectedValue = unit, onSelected = onUnitChange)
+            UnitOption(label = stringResource(R.string.pcs), value = "pcs", selectedValue = unit, onSelected = onUnitChange)
         }
     }
 }
