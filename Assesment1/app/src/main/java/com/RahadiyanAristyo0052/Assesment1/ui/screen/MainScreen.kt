@@ -89,12 +89,17 @@ fun ScreenContent(modifier: Modifier = Modifier) {
     var product2Unit by rememberSaveable { mutableStateOf("ml") }
 
     var hasCompared by rememberSaveable { mutableStateOf(false) }
+    var showValidation by rememberSaveable { mutableStateOf(false) }
     var resultLine1 by rememberSaveable { mutableStateOf("") }
     var resultLine2 by rememberSaveable { mutableStateOf("") }
     var resultSummary by rememberSaveable { mutableStateOf("") }
 
     val product1Title = stringResource(R.string.product_1)
     val product2Title = stringResource(R.string.product_2)
+    val product1PriceError = if (showValidation) validatePrice(product1Price) else null
+    val product1AmountError = if (showValidation) validateAmount(product1Amount) else null
+    val product2PriceError = if (showValidation) validatePrice(product2Price) else null
+    val product2AmountError = if (showValidation) validateAmount(product2Amount) else null
 
     Column(
         modifier = modifier
@@ -187,7 +192,9 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             amount = product1Amount,
             onAmountChange = { product1Amount = it },
             unit = product1Unit,
-            onUnitChange = { product1Unit = it }
+            onUnitChange = { product1Unit = it },
+            priceError = product1PriceError?.let { stringResource(it) },
+            amountError = product1AmountError?.let { stringResource(it) }
         )
 
         Spacer(modifier = Modifier.height(14.dp))
@@ -201,7 +208,9 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             amount = product2Amount,
             onAmountChange = { product2Amount = it },
             unit = product2Unit,
-            onUnitChange = { product2Unit = it }
+            onUnitChange = { product2Unit = it },
+            priceError = product2PriceError?.let { stringResource(it) },
+            amountError = product2AmountError?.let { stringResource(it) }
         )
 
         Spacer(modifier = Modifier.height(14.dp))
@@ -209,6 +218,7 @@ fun ScreenContent(modifier: Modifier = Modifier) {
         Button(
             onClick = {
                 hasCompared = true
+                showValidation = true
                 val result = compareProducts(
                     context = context,
                     product1Label = product1Name.ifBlank { product1Title },
@@ -253,7 +263,9 @@ fun ProductCard(
     amount: String,
     onAmountChange: (String) -> Unit,
     unit: String,
-    onUnitChange: (String) -> Unit
+    onUnitChange: (String) -> Unit,
+    priceError: String?,
+    amountError: String?
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -292,11 +304,12 @@ fun ProductCard(
                 value = price,
                 onValueChange = onPriceChange,
                 modifier = Modifier.fillMaxWidth(),
+                isError = priceError != null,
                 label = {
                     Text(text = stringResource(R.string.price_label))
                 },
                 supportingText = {
-                    Text(text = stringResource(R.string.price_help))
+                    Text(text = priceError ?: stringResource(R.string.price_help))
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 singleLine = true
@@ -306,11 +319,12 @@ fun ProductCard(
                 value = amount,
                 onValueChange = onAmountChange,
                 modifier = Modifier.fillMaxWidth(),
+                isError = amountError != null,
                 label = {
                     Text(text = stringResource(R.string.amount_label))
                 },
                 supportingText = {
-                    Text(text = stringResource(R.string.amount_help))
+                    Text(text = amountError ?: stringResource(R.string.amount_help))
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 singleLine = true
@@ -608,8 +622,36 @@ fun baseUnitLabel(unit: String): String {
 }
 
 fun formatNumber(value: Double): String {
-    val formatter = NumberFormat.getNumberInstance(Locale("id", "ID"))
+    val formatter = NumberFormat.getNumberInstance(Locale.forLanguageTag("id-ID"))
     formatter.minimumFractionDigits = 0
     formatter.maximumFractionDigits = 2
     return formatter.format(value)
+}
+
+fun validatePrice(text: String): Int? {
+    val price = parsePrice(text)
+
+    if (text.isBlank()) {
+        return R.string.field_required
+    }
+
+    if (price == null || price <= 0.0) {
+        return R.string.price_invalid_field
+    }
+
+    return null
+}
+
+fun validateAmount(text: String): Int? {
+    val amount = parseAmount(text)
+
+    if (text.isBlank()) {
+        return R.string.field_required
+    }
+
+    if (amount == null || amount <= 0.0) {
+        return R.string.amount_invalid_field
+    }
+
+    return null
 }

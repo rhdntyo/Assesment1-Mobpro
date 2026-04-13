@@ -33,4 +33,7 @@
     <string name="result_unit_price">%1$s: Rp %2$s per %3$s</string>
     <string name="result_better">%1$s memberi nilai yang lebih hemat.</string>
     <string name="result_equal">Kedua produk memberi nilai yang sama.</string>
+    <string name="field_required">Kolom ini wajib diisi.</string>
+    <string name="price_invalid_field">Masukkan harga yang valid dan lebih dari 0.</string>
+    <string name="amount_invalid_field">Masukkan jumlah yang valid dan lebih dari 0.</string>
 </resources>

@@ -33,4 +33,7 @@
     <string name="result_unit_price">%1$s: Rp %2$s per %3$s</string>
     <string name="result_better">%1$s gives a better value.</string>
     <string name="result_equal">Both products give the same value.</string>
+    <string name="field_required">This field is required.</string>
+    <string name="price_invalid_field">Enter a valid price greater than 0.</string>
+    <string name="amount_invalid_field">Enter a valid amount greater than 0.</string>
 </resources>
