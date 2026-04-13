@@ -1,6 +1,7 @@
 package com.RahadiyanAristyo0052.Assesment1.ui.screen
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -133,6 +134,7 @@ fun ScreenContent(modifier: Modifier = Modifier) {
     val product1AmountError = if (showValidation) validateAmount(product1Amount) else null
     val product2PriceError = if (showValidation) validatePrice(product2Price) else null
     val product2AmountError = if (showValidation) validateAmount(product2Amount) else null
+    val canShare = resultLine1.isNotBlank() && resultLine2.isNotBlank() && resultSummary.isNotBlank()
 
     Column(
         modifier = modifier
@@ -262,6 +264,26 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             resultLine2 = resultLine2,
             resultSummary = resultSummary
         )
+
+        if (canShare) {
+            Spacer(modifier = Modifier.height(14.dp))
+
+            Button(
+                onClick = {
+                    val shareText = context.getString(
+                        R.string.share_text,
+                        resultLine1,
+                        resultLine2,
+                        resultSummary
+                    )
+
+                    shareResult(context, shareText)
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = stringResource(R.string.share_button))
+            }
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
     }
@@ -668,4 +690,18 @@ fun validateAmount(text: String): Int? {
     }
 
     return null
+}
+
+fun shareResult(context: Context, text: String) {
+    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, text)
+    }
+
+    context.startActivity(
+        Intent.createChooser(
+            shareIntent,
+            context.getString(R.string.share_title)
+        )
+    )
 }

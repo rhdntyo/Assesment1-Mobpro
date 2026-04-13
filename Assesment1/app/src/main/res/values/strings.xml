@@ -24,6 +24,13 @@
     <string name="liter">Liter (L)</string>
     <string name="pcs">Pieces (pcs)</string>
     <string name="compare_button">Compare now</string>
+    <string name="share_button">Share result</string>
+    <string name="share_title">Share comparison result</string>
+    <string name="share_text">%1$s
+
+%2$s
+
+%3$s</string>
     <string name="menu_open">Open menu</string>
     <string name="menu_about">About app</string>
     <string name="up_button">Back</string>
